@@ -8,12 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		26E0A1E91F8FB07B00C41B4F /* CWXML.h in Headers */ = {isa = PBXBuildFile; fileRef = 26E0A1E71F8FB07B00C41B4F /* CWXML.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		26E0A1F01F8FB15200C41B4F /* CWXML.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 26E0A1E41F8FB07B00C41B4F /* CWXML.framework */; };
+		26E0A21A1F8FB4F400C41B4F /* CWXMLElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E0A2171F8FB4F400C41B4F /* CWXMLElement.swift */; };
+		26E0A21B1F8FB4F400C41B4F /* CWXMLDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E0A2181F8FB4F400C41B4F /* CWXMLDocument.swift */; };
+		26E0A21C1F8FB4F400C41B4F /* CWXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E0A2191F8FB4F400C41B4F /* CWXMLParser.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		26E0A1EF1F8FB13000C41B4F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "~/Documents/XCode Projects/Frameworks";
+			dstSubfolderSpec = 0;
+			files = (
+				26E0A1F01F8FB15200C41B4F /* CWXML.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		26E0A1E41F8FB07B00C41B4F /* CWXML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CWXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26E0A1E71F8FB07B00C41B4F /* CWXML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CWXML.h; sourceTree = "<group>"; };
 		26E0A1E81F8FB07B00C41B4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		26E0A2171F8FB4F400C41B4F /* CWXMLElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWXMLElement.swift; sourceTree = "<group>"; };
+		26E0A2181F8FB4F400C41B4F /* CWXMLDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWXMLDocument.swift; sourceTree = "<group>"; };
+		26E0A2191F8FB4F400C41B4F /* CWXMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWXMLParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +66,9 @@
 		26E0A1E61F8FB07B00C41B4F /* CWXML */ = {
 			isa = PBXGroup;
 			children = (
+				26E0A2181F8FB4F400C41B4F /* CWXMLDocument.swift */,
+				26E0A2171F8FB4F400C41B4F /* CWXMLElement.swift */,
+				26E0A2191F8FB4F400C41B4F /* CWXMLParser.swift */,
 				26E0A1E71F8FB07B00C41B4F /* CWXML.h */,
 				26E0A1E81F8FB07B00C41B4F /* Info.plist */,
 			);
@@ -74,6 +97,7 @@
 				26E0A1E01F8FB07B00C41B4F /* Frameworks */,
 				26E0A1E11F8FB07B00C41B4F /* Headers */,
 				26E0A1E21F8FB07B00C41B4F /* Resources */,
+				26E0A1EF1F8FB13000C41B4F /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -95,6 +119,7 @@
 				TargetAttributes = {
 					26E0A1E31F8FB07B00C41B4F = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -131,6 +156,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26E0A21B1F8FB4F400C41B4F /* CWXMLDocument.swift in Sources */,
+				26E0A21C1F8FB4F400C41B4F /* CWXMLParser.swift in Sources */,
+				26E0A21A1F8FB4F400C41B4F /* CWXMLElement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +280,7 @@
 		26E0A1ED1F8FB07B00C41B4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -267,6 +296,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.colinwilson.CWXML;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -274,6 +304,7 @@
 		26E0A1EE1F8FB07B00C41B4F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
