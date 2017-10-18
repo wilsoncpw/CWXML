@@ -8,6 +8,15 @@
 
 import Foundation
 
+public func splitQName (qname: String)->(prefix: String, localName: String) {
+    if var p = qname.index(of: ":") {
+        let _prefix = String (qname [..<p])
+        p = qname.index(p, offsetBy: 1)
+        return (prefix: _prefix, localName: String (qname [p...]))
+    } else {
+        return (prefix: "", localName: qname)
+    }
+}
 
 open class CWXMLElement: CWXMLNode {
     weak var parent: CWXMLNode?
@@ -23,16 +32,9 @@ open class CWXMLElement: CWXMLNode {
     
     public var prefix: String {
         if _prefix == nil {
-            
-            if var p = name.index(of: ":") {
-                _prefix = String (name [..<p])
-                p = name.index(p, offsetBy: 1)
-                _localName = String (name [p...])
-            } else {
-                _prefix = ""
-                _localName = name
-            }
-
+            let px = splitQName(qname: name)
+            _prefix = px.prefix
+            _localName = px.localName
         }
         return _prefix!
     }
@@ -160,13 +162,13 @@ public extension CWXMLElement {
         return namespaces? [prefix]
     }
     
-    public func resolveNamespace (forName qname: String) -> String? {
+    public func resolveNamespace (forName qname: String, defaultPrefix: String = "") -> String? {
         let s = qname.components(separatedBy:":")
         
         if s.count > 1 {
             return namespace(forPrefix:s [0])
         }
-        return namespace(forPrefix:"")
+        return namespace(forPrefix:defaultPrefix)
     }
     
     public func elements(forLocalName name: String, uri: String?) -> [CWXMLElement] {
