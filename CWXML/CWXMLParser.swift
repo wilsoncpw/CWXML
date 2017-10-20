@@ -155,11 +155,11 @@ class CWXMLParserDelegate: NSObject, XMLParserDelegate {
         
         if let namespaceURI = namespaceURI, !namespaceURI.isEmpty {
             do {
-                guard let uri = elem.uri else {
+                guard let namespaceUri = elem.namespaceUri else {
                     throw CWXMLError.NamespaceError
                 }
                 
-                if namespaceURI != uri {
+                if namespaceURI != namespaceUri {
                     throw CWXMLError.NamespaceError
                 }
                 

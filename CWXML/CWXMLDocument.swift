@@ -30,12 +30,14 @@ open class CWXMLDocument: CWXMLNode {
     var comments = [String] ()
     var processingInstructions = [String] ()
     private (set) public var rootElement: CWXMLElement?
+    private (set) public var url: URL?
     
     required override public init () {
         super.init()
     }
     
     open func noteURL (url: URL?) {
+        self.url = url
     }
     
     func internalSetRootElement (elem: CWXMLElement) {

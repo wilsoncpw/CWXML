@@ -24,7 +24,7 @@ open class CWXMLElement: CWXMLNode {
     var attributes : [String: String]?
     var namespaces: [String: String]?
     public var text: String?
-    private (set) var children : [CWXMLElement]?
+    private (set) public var children : [CWXMLElement]?
     
     private var _uri: String?
     private var _prefix: String?
@@ -39,7 +39,7 @@ open class CWXMLElement: CWXMLNode {
         return _prefix!
     }
     
-    public var uri: String? {
+    public var namespaceUri: String? {
         if _uri == nil {
             guard let namespaces = namespaces else {
                 return nil
@@ -171,14 +171,14 @@ public extension CWXMLElement {
         return namespace(forPrefix:defaultPrefix)
     }
     
-    public func elements(forLocalName name: String, uri: String?) -> [CWXMLElement] {
+    public func elements(forLocalName name: String, namespaceUri: String?) -> [CWXMLElement] {
         guard let children = children else {
             return [CWXMLElement] ()
         }
         
         return children.filter() {
             elem in
-            return (uri == nil || (elem.uri != nil && elem.uri! == uri!)) && name == elem.localName
+            return (namespaceUri == nil || (elem.namespaceUri != nil && elem.namespaceUri! == namespaceUri!)) && name == elem.localName
         }
     }
     
@@ -186,10 +186,10 @@ public extension CWXMLElement {
         let s = name.components(separatedBy: ":")
         
         if s.count >= 2 {
-            guard let namespaces = namespaces, let uri = namespaces [s [0]] else {
+            guard let namespaces = namespaces, let namespaceUri = namespaces [s [0]] else {
                 return [CWXMLElement] ()
             }
-            return elements(forLocalName: s [1], uri: uri)
+            return elements(forLocalName: s [1], namespaceUri: namespaceUri)
         }
         
         guard let children = children else {
