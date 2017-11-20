@@ -108,7 +108,7 @@ public class CWXMLElement: CWXMLNode {
     }
     
     //-----------------------------------------------------------------------------------
-    // Append a child element.  Return the elementg for convenience.
+    // Append a child element.  Return the element for convenience.
     @discardableResult public func appendChildElement (elem: CWXMLElement) throws -> CWXMLElement {
         func _appendChild (elem: CWXMLElement) throws {
             
