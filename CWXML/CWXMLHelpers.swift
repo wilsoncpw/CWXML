@@ -20,7 +20,7 @@ public func splitQName (qname: String)->(prefix: String, localName: String) {
 
 public func stringByDecodingXMLEntities (_ st: String)->String? {
     
-    if st.count < 4 {
+    if st.count < 4 {   // eg. "&gt;"
         return st
     }
     
@@ -54,28 +54,18 @@ public func stringByDecodingXMLEntities (_ st: String)->String? {
 }
 
 public func stringByEncodingXMLEntities (_ st: String)->String {
-    if st == "" {
-        return ""
-    }
     
     var rv = ""
-    var p = st.startIndex
-    
-    while p != st.endIndex {
-        
-        let ch : Character = st [p]
-        switch ch {
+    for char in st {
+        switch char {
         case "&": rv += "&amp;";
         case "\"": rv += "&quot;"
         case "'": rv += "&apos;"
         case "<": rv += "&lt;"
         case ">": rv += "&gt;"
-        default : rv.append (ch)
+        default : rv.append (char)
         }
-        p = st.index(p, offsetBy: 1)
     }
-    
     return rv
-    
 }
 
