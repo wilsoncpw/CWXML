@@ -29,11 +29,12 @@ public func stringByDecodingXMLEntities (_ st: String)->String? {
     
     while let idx = s.index (of: "&") {
         
-        rv = rv + s.substring (to: idx)
-        s = s.substring (from: s.index (idx, offsetBy: 1))
+        rv = rv + s [..<idx]
+        
+        s = String (s [s.index(idx, offsetBy: 1)...])
         
         if let eidx = s.index (of: ";") {
-            switch (s.substring(to: eidx)) {
+            switch s [..<eidx] {
             case "amp": rv += "&"
             case "quot": rv += "\""
             case "apos": rv += "'"
@@ -41,7 +42,7 @@ public func stringByDecodingXMLEntities (_ st: String)->String? {
             case "gt": rv += ">"
             default: return nil
             }
-            s = s.substring(from: s.index (eidx, offsetBy:1))
+            s = String (s [s.index (eidx, offsetBy: 1)])
             
         } else {
             return nil
@@ -58,10 +59,9 @@ public func stringByEncodingXMLEntities (_ st: String)->String {
     }
     
     var rv = ""
-    var s = st
-    var p = s.startIndex
+    var p = st.startIndex
     
-    while p != s.endIndex {
+    while p != st.endIndex {
         
         let ch : Character = st [p]
         switch ch {
@@ -72,7 +72,7 @@ public func stringByEncodingXMLEntities (_ st: String)->String {
         case ">": rv += "&gt;"
         default : rv.append (ch)
         }
-        p = s.characters.index (p, offsetBy: 1)
+        p = st.index(p, offsetBy: 1)
     }
     
     return rv
