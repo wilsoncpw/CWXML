@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		269338341FB363DF0000BEC9 /* CWXMLiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 269338321FB363DF0000BEC9 /* CWXMLiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		269338381FB3644A0000BEC9 /* CWXMLDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E0A2181F8FB4F400C41B4F /* CWXMLDocument.swift */; };
+		269338391FB3644A0000BEC9 /* CWXMLElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E0A2171F8FB4F400C41B4F /* CWXMLElement.swift */; };
+		2693383A1FB3644A0000BEC9 /* CWXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E0A2191F8FB4F400C41B4F /* CWXMLParser.swift */; };
+		2693383D1FB365860000BEC9 /* CWXMLiOS.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 269338301FB363DF0000BEC9 /* CWXMLiOS.framework */; };
+		26A354431FBDF0DE003A78B9 /* CWXMLComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A354421FBDF0DE003A78B9 /* CWXMLComment.swift */; };
+		26A354451FBDF0F7003A78B9 /* CWXMLProcessingInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A354441FBDF0F7003A78B9 /* CWXMLProcessingInstruction.swift */; };
+		26A354461FBDF7FA003A78B9 /* CWXMLComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A354421FBDF0DE003A78B9 /* CWXMLComment.swift */; };
+		26A354471FBDF7FA003A78B9 /* CWXMLProcessingInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A354441FBDF0F7003A78B9 /* CWXMLProcessingInstruction.swift */; };
+		26A3546A1FBF1356003A78B9 /* CWXMLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A354691FBF1356003A78B9 /* CWXMLHelpers.swift */; };
+		26A3546C1FBF138C003A78B9 /* CWXMLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3546B1FBF138C003A78B9 /* CWXMLError.swift */; };
+		26A3546E1FBF13B6003A78B9 /* CWXMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3546D1FBF13B6003A78B9 /* CWXMLNode.swift */; };
+		26A3546F1FBF13FC003A78B9 /* CWXMLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A354691FBF1356003A78B9 /* CWXMLHelpers.swift */; };
+		26A354701FBF13FC003A78B9 /* CWXMLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3546B1FBF138C003A78B9 /* CWXMLError.swift */; };
+		26A354711FBF13FC003A78B9 /* CWXMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3546D1FBF13B6003A78B9 /* CWXMLNode.swift */; };
 		26E0A1E91F8FB07B00C41B4F /* CWXML.h in Headers */ = {isa = PBXBuildFile; fileRef = 26E0A1E71F8FB07B00C41B4F /* CWXML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		26E0A1F01F8FB15200C41B4F /* CWXML.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 26E0A1E41F8FB07B00C41B4F /* CWXML.framework */; };
 		26E0A21A1F8FB4F400C41B4F /* CWXMLElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E0A2171F8FB4F400C41B4F /* CWXMLElement.swift */; };
@@ -15,6 +30,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		2693383C1FB365500000BEC9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "~/Documents/XCode Projects/iOSFrameworks";
+			dstSubfolderSpec = 0;
+			files = (
+				2693383D1FB365860000BEC9 /* CWXMLiOS.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		26E0A1EF1F8FB13000C41B4F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -28,6 +53,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		269338301FB363DF0000BEC9 /* CWXMLiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CWXMLiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		269338321FB363DF0000BEC9 /* CWXMLiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CWXMLiOS.h; sourceTree = "<group>"; };
+		269338331FB363DF0000BEC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		26A354421FBDF0DE003A78B9 /* CWXMLComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWXMLComment.swift; sourceTree = "<group>"; };
+		26A354441FBDF0F7003A78B9 /* CWXMLProcessingInstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWXMLProcessingInstruction.swift; sourceTree = "<group>"; };
+		26A354691FBF1356003A78B9 /* CWXMLHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWXMLHelpers.swift; sourceTree = "<group>"; };
+		26A3546B1FBF138C003A78B9 /* CWXMLError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWXMLError.swift; sourceTree = "<group>"; };
+		26A3546D1FBF13B6003A78B9 /* CWXMLNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWXMLNode.swift; sourceTree = "<group>"; };
 		26E0A1E41F8FB07B00C41B4F /* CWXML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CWXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26E0A1E71F8FB07B00C41B4F /* CWXML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CWXML.h; sourceTree = "<group>"; };
 		26E0A1E81F8FB07B00C41B4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -37,6 +70,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2693382C1FB363DF0000BEC9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		26E0A1E01F8FB07B00C41B4F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -47,10 +87,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		269338311FB363DF0000BEC9 /* CWXMLiOS */ = {
+			isa = PBXGroup;
+			children = (
+				269338321FB363DF0000BEC9 /* CWXMLiOS.h */,
+				269338331FB363DF0000BEC9 /* Info.plist */,
+			);
+			path = CWXMLiOS;
+			sourceTree = "<group>";
+		};
 		26E0A1DA1F8FB07B00C41B4F = {
 			isa = PBXGroup;
 			children = (
 				26E0A1E61F8FB07B00C41B4F /* CWXML */,
+				269338311FB363DF0000BEC9 /* CWXMLiOS */,
 				26E0A1E51F8FB07B00C41B4F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				26E0A1E41F8FB07B00C41B4F /* CWXML.framework */,
+				269338301FB363DF0000BEC9 /* CWXMLiOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -66,9 +117,14 @@
 		26E0A1E61F8FB07B00C41B4F /* CWXML */ = {
 			isa = PBXGroup;
 			children = (
+				26A3546D1FBF13B6003A78B9 /* CWXMLNode.swift */,
 				26E0A2181F8FB4F400C41B4F /* CWXMLDocument.swift */,
 				26E0A2171F8FB4F400C41B4F /* CWXMLElement.swift */,
 				26E0A2191F8FB4F400C41B4F /* CWXMLParser.swift */,
+				26A354421FBDF0DE003A78B9 /* CWXMLComment.swift */,
+				26A354441FBDF0F7003A78B9 /* CWXMLProcessingInstruction.swift */,
+				26A354691FBF1356003A78B9 /* CWXMLHelpers.swift */,
+				26A3546B1FBF138C003A78B9 /* CWXMLError.swift */,
 				26E0A1E71F8FB07B00C41B4F /* CWXML.h */,
 				26E0A1E81F8FB07B00C41B4F /* Info.plist */,
 			);
@@ -78,6 +134,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		2693382D1FB363DF0000BEC9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				269338341FB363DF0000BEC9 /* CWXMLiOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		26E0A1E11F8FB07B00C41B4F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -89,6 +153,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		2693382F1FB363DF0000BEC9 /* CWXMLiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 269338371FB363DF0000BEC9 /* Build configuration list for PBXNativeTarget "CWXMLiOS" */;
+			buildPhases = (
+				2693382B1FB363DF0000BEC9 /* Sources */,
+				2693382C1FB363DF0000BEC9 /* Frameworks */,
+				2693382D1FB363DF0000BEC9 /* Headers */,
+				2693382E1FB363DF0000BEC9 /* Resources */,
+				2693383C1FB365500000BEC9 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CWXMLiOS;
+			productName = CWXMLiOS;
+			productReference = 269338301FB363DF0000BEC9 /* CWXMLiOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		26E0A1E31F8FB07B00C41B4F /* CWXML */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 26E0A1EC1F8FB07B00C41B4F /* Build configuration list for PBXNativeTarget "CWXML" */;
@@ -117,6 +200,10 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Colin Wilson";
 				TargetAttributes = {
+					2693382F1FB363DF0000BEC9 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
 					26E0A1E31F8FB07B00C41B4F = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 0900;
@@ -137,11 +224,19 @@
 			projectRoot = "";
 			targets = (
 				26E0A1E31F8FB07B00C41B4F /* CWXML */,
+				2693382F1FB363DF0000BEC9 /* CWXMLiOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2693382E1FB363DF0000BEC9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		26E0A1E21F8FB07B00C41B4F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -152,19 +247,86 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2693382B1FB363DF0000BEC9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26A3546F1FBF13FC003A78B9 /* CWXMLHelpers.swift in Sources */,
+				26A354701FBF13FC003A78B9 /* CWXMLError.swift in Sources */,
+				26A354711FBF13FC003A78B9 /* CWXMLNode.swift in Sources */,
+				26A354461FBDF7FA003A78B9 /* CWXMLComment.swift in Sources */,
+				26A354471FBDF7FA003A78B9 /* CWXMLProcessingInstruction.swift in Sources */,
+				269338381FB3644A0000BEC9 /* CWXMLDocument.swift in Sources */,
+				269338391FB3644A0000BEC9 /* CWXMLElement.swift in Sources */,
+				2693383A1FB3644A0000BEC9 /* CWXMLParser.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		26E0A1DF1F8FB07B00C41B4F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				26E0A21B1F8FB4F400C41B4F /* CWXMLDocument.swift in Sources */,
+				26A3546A1FBF1356003A78B9 /* CWXMLHelpers.swift in Sources */,
+				26A354451FBDF0F7003A78B9 /* CWXMLProcessingInstruction.swift in Sources */,
+				26A3546E1FBF13B6003A78B9 /* CWXMLNode.swift in Sources */,
 				26E0A21C1F8FB4F400C41B4F /* CWXMLParser.swift in Sources */,
+				26A3546C1FBF138C003A78B9 /* CWXMLError.swift in Sources */,
 				26E0A21A1F8FB4F400C41B4F /* CWXMLElement.swift in Sources */,
+				26A354431FBDF0DE003A78B9 /* CWXMLComment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		269338351FB363DF0000BEC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 3R8CQY2XDV;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = CWXMLiOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.colinwilson.CWXMLiOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		269338361FB363DF0000BEC9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 3R8CQY2XDV;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = CWXMLiOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.colinwilson.CWXMLiOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		26E0A1EA1F8FB07B00C41B4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -214,6 +376,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -268,6 +431,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
@@ -327,6 +491,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		269338371FB363DF0000BEC9 /* Build configuration list for PBXNativeTarget "CWXMLiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				269338351FB363DF0000BEC9 /* Debug */,
+				269338361FB363DF0000BEC9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		26E0A1DE1F8FB07B00C41B4F /* Build configuration list for PBXProject "CWXML" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

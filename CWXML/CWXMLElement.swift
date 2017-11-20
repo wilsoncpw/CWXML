@@ -8,28 +8,32 @@
 
 import Foundation
 
-public func splitQName (qname: String)->(prefix: String, localName: String) {
-    if var p = qname.index(of: ":") {
-        let _prefix = String (qname [..<p])
-        p = qname.index(p, offsetBy: 1)
-        return (prefix: _prefix, localName: String (qname [p...]))
-    } else {
-        return (prefix: "", localName: qname)
-    }
-}
-
-open class CWXMLElement: CWXMLNode {
+//=====================================================================================
+// CWXMLElement class
+public class CWXMLElement: CWXMLNode {
     weak var parent: CWXMLNode?
     public let name: String             // Qualified name
-    var attributes : [String: String]?
-    var namespaces: [String: String]?
+    private (set) public var attributes : [String: String]?
+    private (set) public var namespaces: [String: String]?
+    private (set) public var comments = [CWXMLComment] ()
+
     public var text: String?
-    private (set) public var children : [CWXMLElement]?
+    private (set) public var childElements : [CWXMLElement]?
     
     private var _uri: String?
     private var _prefix: String?
     private var _localName: String?
     
+
+    //-----------------------------------------------------------------------------------
+    // init - main initializer
+    public required init (name: String) {
+        self.name = name
+        super.init(nodeType: .Element)
+    }
+    
+    //-----------------------------------------------------------------------------------
+    // Get & cache the prefix. Eg. if the name is wsdl:types, return 'wsdl'
     public var prefix: String {
         if _prefix == nil {
             let px = splitQName(qname: name)
@@ -39,39 +43,58 @@ open class CWXMLElement: CWXMLNode {
         return _prefix!
     }
     
+    //-----------------------------------------------------------------------------------
+    // Get the namespace URI by looking up the prefix in namespaces.  Eg.  if the prefix
+    // is 'wsdl', look this up in the namespaces (and the parents namespaces, etc.) to
+    // get http://schemas.xmlsoap.org/wsdl/
     public var namespaceUri: String? {
         if _uri == nil {
-            guard let namespaces = namespaces else {
-                return nil
-            }
-            
-            _uri = namespaces [prefix]
+            _uri = namespace (forPrefix: prefix)
         }
-        return _uri!
+        return _uri
     }
     
+    //-----------------------------------------------------------------------------------
+    // Get and return the local name.  Eg. If the name is 'wsdl:types' return 'types'
     public var localName: String {
         let _ = prefix
         return _localName ?? ""
     }
     
-    public init (name: String) {
-        self.name = name
+    //-----------------------------------------------------------------------------------
+    // Return the element's parent element - or nil
+    public var parentElement: CWXMLElement? {
+        return parent as? CWXMLElement ?? nil
     }
     
-    public init (name: String, URI: String?) {
-        self.name = name
+    //-----------------------------------------------------------------------------------
+    // Return the element's document
+    public var document: CWXMLDocument? {
+        var p = self
+        
+        while let px = p.parent as? CWXMLElement {
+            p = px
+        }
+        return p.parent as? CWXMLDocument ?? nil
     }
     
-    func internalAppendChild (elem: CWXMLElement) {
-        if children == nil {
-            children = [CWXMLElement] ()
+    //-----------------------------------------------------------------------------------
+    // Append a child element - internal version doesn't check that the element is in our
+    // our document, etc.
+    internal func internalAppendChild (elem: CWXMLElement) {
+        if childElements == nil {
+            childElements = [CWXMLElement] ()
         }
 
-        children!.append(elem)
+        // Append it to both our childElements array and the base node's children array
+        childElements!.append(elem)
+        addChild(node: elem)
         elem.parent = self
     }
     
+   
+    //-----------------------------------------------------------------------------------
+    // Return true if we're an ancestor of the given element
     public func isAncestorOf (_ elem: CWXMLElement)->Bool {
         var p = elem
         
@@ -83,34 +106,10 @@ open class CWXMLElement: CWXMLNode {
         }
         return false
     }
-}
-
-extension CWXMLElement: Equatable {
-    public static func ==(lhs: CWXMLElement, rhs: CWXMLElement) -> Bool {
-        return lhs === rhs
-    }
-}
-
-public extension CWXMLElement {
-    public var parentElement: CWXMLElement? {
-        return parent as? CWXMLElement ?? nil
-    }
     
-    public var document: CWXMLDocument? {
-        var p = self
-        
-        while let px = p.parent as? CWXMLElement {
-            p = px
-        }
-        return p.parent as? CWXMLDocument ?? nil
-    }
-    
-    public func attribute (forName name: String) -> String? {
-        return attributes? [name]
-    }
-    
- 
-    @discardableResult public func appendChild (elem: CWXMLElement) throws -> CWXMLElement {
+    //-----------------------------------------------------------------------------------
+    // Append a child element.  Return the elementg for convenience.
+    @discardableResult public func appendChildElement (elem: CWXMLElement) throws -> CWXMLElement {
         func _appendChild (elem: CWXMLElement) throws {
             
             // Before removing the elem from it's old parent, check that it's not
@@ -145,23 +144,171 @@ public extension CWXMLElement {
     }
     
     @discardableResult public func removeChild (elem: CWXMLElement) throws ->CWXMLElement {
-        if children == nil {
+        if childElements == nil {
             throw CWXMLError.ChildNotFound
         }
-        guard let idx = children!.index (of: elem) else {
+        guard let idx = childElements!.index (of: elem) else {
             throw CWXMLError.ChildNotFound
         }
         
+        removeChild(node: elem)
+        
         elem.parent = nil
-        return children!.remove(at: idx)
+        return childElements!.remove(at: idx)
+    }
+    
+    //-----------------------------------------------------------------------------------
+    public override var XML: String {
+        get {
+            if attributes == nil && children == nil && text == nil {
+                return "<" + name + "/>"
+            }
+            
+            var rv: String
+            
+            // 1.  Opening tag - with attributes
+            if namespaces != nil || attributes != nil {
+                rv = "<" + name
+                
+                if let namespaces = namespaces {
+                    for key in namespaces.keys {
+                        rv += " xmlns:" + key + "=\"" + namespaces [key]! + "\""
+                    }
+                }
+                
+                if let attributes = attributes {
+                    for key in attributes.keys {
+                        rv += " " + key + "=\"" + attributes [key]! + "\""
+                    }
+                }
+                
+                if text == nil && children == nil {
+                    return rv + "/>"
+                }
+                else {
+                    rv += ">"
+                }
+            }
+            else {
+                rv = "<" + name + ">"
+            }
+            
+            // 2.  Data
+            if let text = text {
+                rv += stringByEncodingXMLEntities(text)
+            }
+            
+            // 3.  Children
+            
+            if let children = children {
+                for child in children {
+                    rv += child.XML
+                }
+            }
+            
+            // 4.  Closing tag
+            return rv + "</" + name + ">"
+        }
+    }
+    
+    //-----------------------------------------------------------------------------------
+    public override var stringValue: String? {
+        if let st = text?.trimmingCharacters(in: ["\n", "\t"]) {
+            return st.isEmpty ? nil : st
+        }
+        return nil
+    }
+    
+    //-----------------------------------------------------------------------------------
+    public func addComment (comment: CWXMLComment) {
+        comments.append(comment)
+        addChild(node: comment)
     }
 }
 
+//=====================================================================================
+// CWXMLElement extension with attributey stuff
 public extension CWXMLElement {
-    public func namespace (forPrefix prefix: String) -> String? {
-        return namespaces? [prefix]
+   
+    //-----------------------------------------------------------------------------------
+    // init - initialze with attributes & namespaces
+    public convenience init (name: String, attributes: [String: String]) {
+        self.init(name: name)
+        
+        var ns = [String: String] ()
+        var attr = [String: String] ()
+        
+        // Attributes with the prefix 'xmlns' are really namespaces - so split them into a separate array
+        attributes.forEach() {
+            body in
+            let s = splitQName(qname: body.key)
+            
+            if s.prefix == "xmlns" {
+                ns [s.localName] = body.value
+            } else {
+                attr [body.key] = body.value
+            }
+        }
+        
+        if attr.count > 0 {
+            self.attributes = attr
+        }
+        
+        if ns.count > 0 {
+            self.namespaces = ns
+        }
     }
     
+    //-----------------------------------------------------------------------------------
+    public func attribute (forName name: String) -> String? {
+        return attributes? [name]
+    }
+    
+    //-----------------------------------------------------------------------------------
+    public func setAttribute (name: String, value: String) {
+        if attributes == nil {
+            attributes = [String: String] ()
+        }
+        attributes! [name] = value
+    }
+    
+    //-----------------------------------------------------------------------------------
+    internal func setAttributes (attributes: [String: String]?) {
+        self.attributes = attributes
+    }
+}
+
+//=====================================================================================
+// CWXMLElement extension with namespacey stuff
+public extension CWXMLElement {
+    
+    //-----------------------------------------------------------------------------------
+    // return the namespaceURI for a given prefix.  Search in our namespaces, then our
+    // parent's. etc.
+    public func namespace (forPrefix prefix: String) -> String? {
+        
+        //------------------------  This probably works - but not very clear! ----
+        // return namespaces? [prefix] ?? parentElement?.namespace(forPrefix:prefix)
+        
+        var rv = namespaces? [prefix]
+        if rv == nil {
+            rv = parentElement?.namespace(forPrefix: prefix)
+        }
+        return rv
+    }
+    
+    //-----------------------------------------------------------------------------------
+    // Internal func to set namespaces all in one go.
+    internal func setNamespaces (namespaces: [String: String]?) {
+        if namespaces != nil && namespaces!.count > 0 {
+            self.namespaces = namespaces
+        } else {
+            self.namespaces = nil
+        }
+    }
+    
+    
+    //-----------------------------------------------------------------------------------
     public func resolveNamespace (forName qname: String, defaultPrefix: String = "") -> String? {
         let s = qname.components(separatedBy:":")
         
@@ -171,8 +318,9 @@ public extension CWXMLElement {
         return namespace(forPrefix:defaultPrefix)
     }
     
-    public func elements(forLocalName name: String, namespaceUri: String?) -> [CWXMLElement] {
-        guard let children = children else {
+    //-----------------------------------------------------------------------------------
+   public func elements(forLocalName name: String, namespaceUri: String?) -> [CWXMLElement] {
+        guard let children = childElements else {
             return [CWXMLElement] ()
         }
         
@@ -182,6 +330,7 @@ public extension CWXMLElement {
         }
     }
     
+    //-----------------------------------------------------------------------------------
     public func elements(forName name: String) -> [CWXMLElement] {
         let s = name.components(separatedBy: ":")
         
@@ -192,7 +341,7 @@ public extension CWXMLElement {
             return elements(forLocalName: s [1], namespaceUri: namespaceUri)
         }
         
-        guard let children = children else {
+        guard let children = childElements else {
             return [CWXMLElement] ()
         }
         
@@ -200,5 +349,27 @@ public extension CWXMLElement {
             elem in
             elem.name == name
         }
+    }
+    
+    //-----------------------------------------------------------------------------------
+    public func firstElement (forLocalName name: String, namespaceURI: String?, recurse: Bool) -> CWXMLElement? {
+        guard let children = childElements else {
+            return nil
+        }
+        
+        var rv = children.first(where: ) {
+            elem in
+            return elem.localName == name && (namespaceURI == nil || elem.namespaceUri == namespaceURI)
+        }
+        
+        if rv == nil && recurse {
+            for child in children {
+                rv = child.firstElement(forLocalName: name, namespaceURI: namespaceURI, recurse: true)
+                if rv != nil {
+                    break
+                }
+            }
+        }
+        return rv
     }
 }

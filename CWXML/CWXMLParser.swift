@@ -151,7 +151,24 @@ class CWXMLParserDelegate: NSObject, XMLParserDelegate {
         }
         
         let elem = CWXMLElement (name: name!)
-        elem.namespaces = currentNamespaces
+        
+        elem.setAttributes(attributes: attributeDict)
+        if let currentElement = _currentElement {
+            
+            // Get the current namespaces that the parent doesn't know about
+            let namespaces = currentNamespaces?.filter() {
+                ns in
+                let parentNS = currentElement.namespace(forPrefix: ns.key)
+                return parentNS == nil || parentNS! != ns.value
+            }
+            elem.setNamespaces(namespaces: namespaces)
+            currentElement.internalAppendChild(elem: elem)
+
+        }
+        else {
+            elem.setNamespaces(namespaces: currentNamespaces)
+            doc.internalSetRootElement(elem: elem)
+        }
         
         if let namespaceURI = namespaceURI, !namespaceURI.isEmpty {
             do {
@@ -167,14 +184,6 @@ class CWXMLParserDelegate: NSObject, XMLParserDelegate {
                 p.handleError(.internalError (innerError: e))
                 return
             }
-        }
-        
-        elem.attributes = attributeDict
-        if let currentElement = _currentElement {
-            currentElement.internalAppendChild(elem: elem)
-        }
-        else {
-            doc.internalSetRootElement(elem: elem)
         }
     
         _currentElement = elem
@@ -234,7 +243,11 @@ class CWXMLParserDelegate: NSObject, XMLParserDelegate {
     
     
     func parser(_ parser: XMLParser, foundProcessingInstructionWithTarget target: String, data: String?) {
+        guard let doc = doc else {
+            return
+        }
         
+        doc.addProcessingInstruction(instruction: CWXMLProcessingInstruction (target: target, data: data))
     }
     
     
@@ -242,7 +255,11 @@ class CWXMLParserDelegate: NSObject, XMLParserDelegate {
         guard let doc = doc else {
             return
         }
-        doc.comments.append(comment)
+        if let elem = _currentElement {
+            elem.addComment(comment: CWXMLComment (value: comment))
+        } else {
+            doc.addComment(comment: CWXMLComment (value: comment))
+        }
     }
     
     
