@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class CWXMLNode : Equatable {
+open class CWXMLNode : Equatable {
     public enum NodeType {
         case Document
         case Element
@@ -32,8 +32,18 @@ public class CWXMLNode : Equatable {
         return ""
     }
     
-    public var stringValue: String? {
+    open var stringValue: String? {
         return nil
+    }
+    
+    private func setLevel (_ value: Int) {
+        level = value;
+        if children == nil {
+            return
+        }
+        for child in children! {
+            child.setLevel(value+1)
+        }
     }
     
     internal func addChild (node: CWXMLNode) {
@@ -41,7 +51,7 @@ public class CWXMLNode : Equatable {
             children = [CWXMLNode] ()
         }
         children!.append(node)
-        node.level = level + 1
+        node.setLevel(level + 1)
     }
     
     internal func removeChild (node: CWXMLNode) {

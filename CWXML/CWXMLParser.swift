@@ -152,7 +152,7 @@ class CWXMLParserDelegate: NSObject, XMLParserDelegate {
         
         let elem = CWXMLElement (name: name!)
         
-        elem.setAttributes(attributes: attributeDict)
+        elem.setAttributesAndNamespaces (attributeDict)
         if let currentElement = _currentElement {
             
             // Get the current namespaces that the parent doesn't know about

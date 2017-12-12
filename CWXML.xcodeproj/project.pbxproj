@@ -42,7 +42,7 @@
 		};
 		26E0A1EF1F8FB13000C41B4F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "~/Documents/XCode Projects/Frameworks";
 			dstSubfolderSpec = 0;
 			files = (

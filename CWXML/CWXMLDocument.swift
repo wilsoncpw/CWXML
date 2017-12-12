@@ -28,6 +28,14 @@ public class CWXMLDocument: CWXMLNode {
         super.init(nodeType: .Document)
     }
     
+    convenience public init (rootElementName: String, rootElementAttributes: [String: String]?, rootElementText: String?) {
+        self.init()
+        let elem = CWXMLElement (name: rootElementName)
+        elem.setAttributesAndNamespaces(rootElementAttributes)
+        elem.text = rootElementText
+        internalSetRootElement(elem: elem)
+    }
+    
     public func noteURL (url: URL?) {
         self.url = url
     }
@@ -38,17 +46,30 @@ public class CWXMLDocument: CWXMLNode {
         addChild(node: elem)
     }
     
-    public func setRootElement (elem: CWXMLElement?) throws {
+    @discardableResult public func setRootElement (elem: CWXMLElement?) throws -> CWXMLElement? {
         guard let elem = elem else {
             rootElement = nil
-            return
+            return nil
         }
         
         if let eDoc = elem.document, eDoc !== self {
-            throw CWXMLError.WrongDocument
+            if rootElement == nil {
+                eDoc.rootElement = nil
+            } else {
+                throw CWXMLError.WrongDocument
+            }
         }
         
         internalSetRootElement(elem: elem)
+        return elem
+    }
+    
+    @discardableResult public func setNewRootElement (name: String, attributes: [String: String]?, text: String?) -> CWXMLElement {
+        let elem = CWXMLElement (name: name)
+        elem.setAttributesAndNamespaces(attributes)
+        elem.text = text
+        internalSetRootElement(elem: elem)
+        return elem
     }
     
     public override var XML: String {
@@ -78,5 +99,26 @@ public class CWXMLDocument: CWXMLNode {
     public func addProcessingInstruction (instruction: CWXMLProcessingInstruction) {
         processingInstructions.append(instruction)
         addChild(node: instruction)
+    }
+    
+    @discardableResult public func addChildElement (_ parent: CWXMLElement, elem: CWXMLElement) throws ->CWXMLElement {
+        try parent.appendChildElement(elem: elem)
+        return elem
+    }
+    
+    public func firstElement (forLocalName name: String, namespaceURI: String?, recurse: Bool) -> CWXMLElement? {
+        guard let root = rootElement else {
+            return nil
+        }
+        
+        return root.firstElement(forLocalName:name, namespaceURI:namespaceURI, recurse:recurse)
+    }
+    
+    @discardableResult public func addNewChildElement (parent: CWXMLElement, name: String, attributes: [String: String]?, text: String?) -> CWXMLElement {
+        let elem = CWXMLElement (name: name)
+        elem.setAttributesAndNamespaces(attributes)
+        elem.text = text
+        parent.internalAppendChild(elem: elem)
+        return elem
     }
 }

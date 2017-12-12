@@ -10,7 +10,7 @@ import Foundation
 
 //=====================================================================================
 // CWXMLElement class
-public class CWXMLElement: CWXMLNode {
+open class CWXMLElement: CWXMLNode {
     weak var parent: CWXMLNode?
     public let name: String             // Qualified name
     private (set) public var attributes : [String: String]?
@@ -212,7 +212,7 @@ public class CWXMLElement: CWXMLNode {
     }
     
     //-----------------------------------------------------------------------------------
-    public override var stringValue: String? {
+    open override var stringValue: String? {
         if let st = text?.trimmingCharacters(in: ["\n", "\t"]) {
             return st.isEmpty ? nil : st
         }
@@ -234,6 +234,30 @@ public extension CWXMLElement {
     // init - initialze with attributes & namespaces
     public convenience init (name: String, attributes: [String: String]) {
         self.init(name: name)
+        setAttributesAndNamespaces (attributes)
+    }
+    
+    //-----------------------------------------------------------------------------------
+    public func attribute (forName name: String) -> String? {
+        return attributes? [name]
+    }
+    
+    //-----------------------------------------------------------------------------------
+    public func setAttribute (name: String, value: String) {
+        if attributes == nil {
+            attributes = [String: String] ()
+        }
+        attributes! [name] = value
+    }
+    
+    //-----------------------------------------------------------------------------------
+    internal func setAttributesAndNamespaces (_ values: [String: String]?) {
+        
+        guard let attributes = values else {
+            self.attributes = nil
+            self.namespaces = nil
+            return
+        }
         
         var ns = [String: String] ()
         var attr = [String: String] ()
@@ -252,29 +276,15 @@ public extension CWXMLElement {
         
         if attr.count > 0 {
             self.attributes = attr
+        } else {
+            self.attributes = nil
         }
         
         if ns.count > 0 {
             self.namespaces = ns
+        } else {
+            self.namespaces = nil
         }
-    }
-    
-    //-----------------------------------------------------------------------------------
-    public func attribute (forName name: String) -> String? {
-        return attributes? [name]
-    }
-    
-    //-----------------------------------------------------------------------------------
-    public func setAttribute (name: String, value: String) {
-        if attributes == nil {
-            attributes = [String: String] ()
-        }
-        attributes! [name] = value
-    }
-    
-    //-----------------------------------------------------------------------------------
-    internal func setAttributes (attributes: [String: String]?) {
-        self.attributes = attributes
     }
 }
 
