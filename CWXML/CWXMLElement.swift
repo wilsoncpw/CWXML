@@ -89,6 +89,17 @@ open class CWXMLElement: CWXMLNode {
         // Append it to both our childElements array and the base node's children array
         childElements!.append(elem)
         addChild(node: elem)
+        
+        // Remove namespaces from the child where the same namespace is defined in the parent
+        if let elemNamespaces = elem.namespaces {
+            for ns in elemNamespaces {
+                if self.namespace(forPrefix: ns.key) == ns.value {
+                    if let idx = elem.namespaces!.index(forKey: ns.key) {
+                        elem.namespaces!.remove(at: idx)
+                    }
+                }
+            }
+        }
         elem.parent = self
     }
     
@@ -267,7 +278,9 @@ public extension CWXMLElement {
             body in
             let s = splitQName(qname: body.key)
             
-            if s.prefix == "xmlns" {
+            if s.localName == "xmlns" && s.prefix.isEmpty {
+                ns [""] = body.value
+            } else if s.prefix == "xmlns" {
                 ns [s.localName] = body.value
             } else {
                 attr [body.key] = body.value
