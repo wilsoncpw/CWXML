@@ -11,7 +11,7 @@
 		269338381FB3644A0000BEC9 /* CWXMLDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E0A2181F8FB4F400C41B4F /* CWXMLDocument.swift */; };
 		269338391FB3644A0000BEC9 /* CWXMLElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E0A2171F8FB4F400C41B4F /* CWXMLElement.swift */; };
 		2693383A1FB3644A0000BEC9 /* CWXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E0A2191F8FB4F400C41B4F /* CWXMLParser.swift */; };
-		2693383D1FB365860000BEC9 /* CWXMLiOS.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 269338301FB363DF0000BEC9 /* CWXMLiOS.framework */; };
+		2693383D1FB365860000BEC9 /* CWXMLiOS.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 269338301FB363DF0000BEC9 /* CWXMLiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		26A354431FBDF0DE003A78B9 /* CWXMLComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A354421FBDF0DE003A78B9 /* CWXMLComment.swift */; };
 		26A354451FBDF0F7003A78B9 /* CWXMLProcessingInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A354441FBDF0F7003A78B9 /* CWXMLProcessingInstruction.swift */; };
 		26A354461FBDF7FA003A78B9 /* CWXMLComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A354421FBDF0DE003A78B9 /* CWXMLComment.swift */; };
@@ -23,7 +23,7 @@
 		26A354701FBF13FC003A78B9 /* CWXMLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3546B1FBF138C003A78B9 /* CWXMLError.swift */; };
 		26A354711FBF13FC003A78B9 /* CWXMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3546D1FBF13B6003A78B9 /* CWXMLNode.swift */; };
 		26E0A1E91F8FB07B00C41B4F /* CWXML.h in Headers */ = {isa = PBXBuildFile; fileRef = 26E0A1E71F8FB07B00C41B4F /* CWXML.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		26E0A1F01F8FB15200C41B4F /* CWXML.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 26E0A1E41F8FB07B00C41B4F /* CWXML.framework */; };
+		26E0A1F01F8FB15200C41B4F /* CWXML.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 26E0A1E41F8FB07B00C41B4F /* CWXML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		26E0A21A1F8FB4F400C41B4F /* CWXMLElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E0A2171F8FB4F400C41B4F /* CWXMLElement.swift */; };
 		26E0A21B1F8FB4F400C41B4F /* CWXMLDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E0A2181F8FB4F400C41B4F /* CWXMLDocument.swift */; };
 		26E0A21C1F8FB4F400C41B4F /* CWXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E0A2191F8FB4F400C41B4F /* CWXMLParser.swift */; };
@@ -33,7 +33,7 @@
 		2693383C1FB365500000BEC9 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "~/Documents/XCode Projects/iOSFrameworks";
+			dstPath = "/Users/wilsoncpw/Documents/XCode Projects/iOSFrameworks";
 			dstSubfolderSpec = 0;
 			files = (
 				2693383D1FB365860000BEC9 /* CWXMLiOS.framework in CopyFiles */,
@@ -43,7 +43,7 @@
 		26E0A1EF1F8FB13000C41B4F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
-			dstPath = "~/Documents/XCode Projects/Frameworks";
+			dstPath = "/Users/wilsoncpw/Documents/XCode Projects/Frameworks";
 			dstSubfolderSpec = 0;
 			files = (
 				26E0A1F01F8FB15200C41B4F /* CWXML.framework in CopyFiles */,
@@ -197,11 +197,12 @@
 		26E0A1DB1F8FB07B00C41B4F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Colin Wilson";
 				TargetAttributes = {
 					2693382F1FB363DF0000BEC9 = {
 						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					26E0A1E31F8FB07B00C41B4F = {
@@ -298,7 +299,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -321,7 +322,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -341,7 +342,6 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -349,7 +349,6 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -404,7 +403,6 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -412,7 +410,6 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
