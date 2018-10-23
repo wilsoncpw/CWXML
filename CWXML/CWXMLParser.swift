@@ -22,28 +22,20 @@ public class CWXMLParser {
     
     private let parser : XMLParser
     private var error: CWXMLParserError?
-    private var delegate: CWXMLParserDelegate!
     private var busy = false
     fileprivate var url: URL?
     
     public init (data: Data) {
         parser = XMLParser (data: data)
-        delegate = CWXMLParserDelegate (parser: self)
-        parser.delegate = delegate  // Note that XMLParser doesn't keep a strong reference to its delegate
-                                    // - so we need to keep one in this 'delegate' variable
     }
     
     public init (stream: InputStream) {
         parser = XMLParser (stream: stream)
-        delegate = CWXMLParserDelegate (parser: self)
-        parser.delegate = delegate
     }
     
     public init (url: URL) throws {
         if let parser = XMLParser (contentsOf: url) {
             self.parser = parser
-            delegate = CWXMLParserDelegate (parser: self)
-            parser.delegate = delegate
             self.url = url
         } else {
             throw CWXMLParserError.errorLoadingURL
@@ -58,6 +50,8 @@ public class CWXMLParser {
         defer {
             busy = false
         }
+        let delegate = CWXMLParserDelegate (parser: self)
+        parser.delegate = delegate
         parser.shouldProcessNamespaces = true
         parser.shouldReportNamespacePrefixes = true
         parser.shouldResolveExternalEntities = true
@@ -217,7 +211,6 @@ class CWXMLParserDelegate: NSObject, XMLParserDelegate {
         if currentNamespaces!.removeValue(forKey: prefix) == nil {
             p.handleError(CWXMLParserError.prefixMappingNotStarted)
         }
-        
     }
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
