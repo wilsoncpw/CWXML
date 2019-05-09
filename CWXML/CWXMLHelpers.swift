@@ -9,7 +9,7 @@
 import Foundation
 
 public func splitQName (qname: String)->(prefix: String, localName: String) {
-    if var p = qname.index(of: ":") {
+    if var p = qname.firstIndex(of: ":") {
         let _prefix = String (qname [..<p])
         p = qname.index(p, offsetBy: 1)
         return (prefix: _prefix, localName: String (qname [p...]))
@@ -27,13 +27,13 @@ public func stringByDecodingXMLEntities (_ st: String)->String? {
     var rv = ""
     var s = st
     
-    while let idx = s.index (of: "&") {
+    while let idx = s.firstIndex (of: "&") {
         
         rv = rv + s [..<idx]
         
         s = String (s [s.index(idx, offsetBy: 1)...])
         
-        if let eidx = s.index (of: ";") {
+        if let eidx = s.firstIndex (of: ";") {
             switch s [..<eidx] {
             case "amp": rv += "&"
             case "quot": rv += "\""

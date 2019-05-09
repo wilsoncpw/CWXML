@@ -55,7 +55,7 @@ open class CWXMLNode : Equatable {
     }
     
     internal func removeChild (node: CWXMLNode) {
-        guard let idx = children?.index(of: node) else {
+        guard let idx = children?.firstIndex(of: node) else {
             return
         }
         children!.remove(at: idx)
