@@ -158,7 +158,7 @@ open class CWXMLElement: CWXMLNode {
         if childElements == nil {
             throw CWXMLError.ChildNotFound
         }
-        guard let idx = childElements!.index (of: elem) else {
+        guard let idx = childElements!.firstIndex (of: elem) else {
             throw CWXMLError.ChildNotFound
         }
         
@@ -171,7 +171,7 @@ open class CWXMLElement: CWXMLNode {
     //-----------------------------------------------------------------------------------
     public override var XML: String {
         get {
-            if attributes == nil && children == nil && text == nil {
+            if attributes == nil && children == nil && text == nil && namespaces == nil {
                 return "<" + name + "/>"
             }
             
@@ -183,7 +183,11 @@ open class CWXMLElement: CWXMLNode {
                 
                 if let namespaces = namespaces {
                     for key in namespaces.keys {
-                        rv += " xmlns:" + key + "=\"" + namespaces [key]! + "\""
+                        if key == "" {
+                            rv += " xmlns=\"" + namespaces [key]! + "\""
+                        } else {
+                            rv += " xmlns:" + key + "=\"" + namespaces [key]! + "\""
+                        }
                     }
                 }
                 
@@ -243,18 +247,18 @@ public extension CWXMLElement {
    
     //-----------------------------------------------------------------------------------
     // init - initialze with attributes & namespaces
-    public convenience init (name: String, attributes: [String: String]) {
+    convenience init (name: String, attributes: [String: String]) {
         self.init(name: name)
         setAttributesAndNamespaces (attributes)
     }
     
     //-----------------------------------------------------------------------------------
-    public func attribute (forName name: String) -> String? {
+    func attribute (forName name: String) -> String? {
         return attributes? [name]
     }
     
     //-----------------------------------------------------------------------------------
-    public func setAttribute (name: String, value: String) {
+    func setAttribute (name: String, value: String) {
         if attributes == nil {
             attributes = [String: String] ()
         }
@@ -308,7 +312,7 @@ public extension CWXMLElement {
     //-----------------------------------------------------------------------------------
     // return the namespaceURI for a given prefix.  Search in our namespaces, then our
     // parent's. etc.
-    public func namespace (forPrefix prefix: String) -> String? {
+    func namespace (forPrefix prefix: String) -> String? {
         
         //------------------------  This probably works - but not very clear! ----
         // return namespaces? [prefix] ?? parentElement?.namespace(forPrefix:prefix)
@@ -332,7 +336,7 @@ public extension CWXMLElement {
     
     
     //-----------------------------------------------------------------------------------
-    public func resolveNamespace (forName qname: String, defaultPrefix: String = "") -> String? {
+    func resolveNamespace (forName qname: String, defaultPrefix: String = "") -> String? {
         let s = qname.components(separatedBy:":")
         
         if s.count > 1 {
@@ -342,7 +346,7 @@ public extension CWXMLElement {
     }
     
     //-----------------------------------------------------------------------------------
-   public func elements(forLocalName name: String, namespaceUri: String?) -> [CWXMLElement] {
+    func elements(forLocalName name: String, namespaceUri: String?) -> [CWXMLElement] {
         guard let children = childElements else {
             return [CWXMLElement] ()
         }
@@ -354,7 +358,7 @@ public extension CWXMLElement {
     }
     
     //-----------------------------------------------------------------------------------
-    public func elements(forName name: String) -> [CWXMLElement] {
+    func elements(forName name: String) -> [CWXMLElement] {
         let s = name.components(separatedBy: ":")
         
         if s.count >= 2 {
@@ -375,7 +379,7 @@ public extension CWXMLElement {
     }
     
     //-----------------------------------------------------------------------------------
-    public func firstElement (forLocalName name: String, namespaceURI: String?, recurse: Bool) -> CWXMLElement? {
+    func firstElement (forLocalName name: String, namespaceURI: String?, recurse: Bool) -> CWXMLElement? {
         guard let children = childElements else {
             return nil
         }
